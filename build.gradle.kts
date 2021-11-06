@@ -1,5 +1,6 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.konan.target.buildDistribution
 import java.io.ByteArrayOutputStream
 
 fun properties(key: String) = project.findProperty(key).toString()
@@ -131,6 +132,16 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
+    }
+
+    // 在 prepareSandbox 最后一步进行资源拷贝
+    prepareSandbox {
+        doLast{
+            copy {
+                from(file("$projectDir/README.md"))
+                into(file("$buildDir/idea-sandbox/plugins/${rootProject.name}/bin"))
+            }
+        }
     }
 
     runIde {
