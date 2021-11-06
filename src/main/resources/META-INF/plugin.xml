@@ -29,6 +29,31 @@
         <applicationService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.services.MyApplicationService"/>
         <!-- 注册一个项目级别的 service（每个窗口实例化一个） -->
         <projectService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.services.MyProjectService"/>
+
+        <!-- 代码来源： https://github.com/JetBrains/intellij-sdk-code-samples/tree/main/settings -->
+        <!-- 属性 applicationConfigurable 和 projectConfigurable 贡献点
+            parentId - 定义当前设置项在设置窗口中的位置，可选值为 https://plugins.jetbrains.com/docs/intellij/settings-guide.html#values-for-parent-id-attribute
+            Id - 唯一 ID，建议和类名一致
+            instance - Configurable 实现类的全名，和 provider 二选一
+            provider - ConfigurableProvider 实现类的全名，和 instance 二选一
+            nonDefaultProject - projectConfigurable 专属属性，是否允许用户配置默认配置 true - 该配置默认值写死的， false - 该配置默认值用户可以配置
+                nonDefaultProject = false 场景例子：编辑器字体，用户可以改变默认的字体，也可以专门为这个项目设置特定的配置
+            displayName - 展示名，不需要本地化场景
+            key 和 bundle - 需要本地化场景
+            groupWeight - 排序顺序，默认为 0 （权重最低）
+            dynamic - 设置项内容是否是动态的计算的，默认 false
+            childrenEPName - 如果配置项有多页，可以通过该字段组成树形结构？？
+        -->
+        <!-- 应用级别配置贡献点 -->
+        <!-- https://plugins.jetbrains.com/docs/intellij/settings-guide.html#settings-declaration-attributes -->
+        <applicationConfigurable parentId="tools"
+                                 instance="com.github.rectcircle.learnintellijplatformplugin.settings.AppSettingsConfigurable"
+                                 id="org.intellij.sdk.settings.AppSettingsConfigurable"
+                                 displayName="SDK: Application Settings Example"/>
+<!--        <projectConfigurable parentId="tools" instance="org.company.ProjectSettingsConfigurable"-->
+<!--                             id="org.company.ProjectSettingsConfigurable" displayName="My Project Settings"-->
+<!--                             nonDefaultProject="true"/>-->
+        <applicationService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.settings.AppSettingsState"/>
     </extensions>
 
     <!-- 注册应用级别监听器. see: https://plugins.jetbrains.com/docs/intellij/plugin-listeners.html#defining-application-level-listeners -->
