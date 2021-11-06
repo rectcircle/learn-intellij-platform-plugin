@@ -1,16 +1,37 @@
-<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<!-- 插件配置文件. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.rectcircle.learnintellijplatformplugin</id>
-    <name>learn-intellij-platform-plugin</name>
+    <!-- 插件唯一标示符 -->
+    <id>cn.rectcircle.learnintellijplatformplugin</id>
+    <!-- 插件版本 -->
+    <version>0.0.1</version>
+
+    <!-- 插件展示名 -->
+    <name>Demo 插件</name>
+    <!-- 插件描述 -->
+    <description><![CDATA[
+        <p>这是插件描述这是插件描述这是插件描述这是插件描述这是插件描述这是插件描述</p>
+        <p>这是插件描述这是插件描述这是插件描述这是插件描述这是插件描述这是插件描述</p>
+    ]]></description>
+    <!-- 供应商 / 作者 -->
     <vendor>rectcircle</vendor>
 
+    <!-- 依赖的内置插件. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
+    <!-- 插件扩展声明. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+<!--    <extensionPoints></extensionPoints>-->
+
+    <!-- 自定义扩展声明. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extensions.html#declaring-extensions -->
+    <!-- 配置贡献点 -->
     <extensions defaultExtensionNs="com.intellij">
+        <!-- https://plugins.jetbrains.com/docs/intellij/plugin-services.html#declaring-a-service -->
+        <!-- 注册一个应用级别的 service （全局实例化一个）-->
         <applicationService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.services.MyApplicationService"/>
+        <!-- 注册一个项目级别的 service（每个窗口实例化一个） -->
         <projectService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.services.MyProjectService"/>
     </extensions>
 
+    <!-- 注册应用级别监听器. see: https://plugins.jetbrains.com/docs/intellij/plugin-listeners.html#defining-application-level-listeners -->
     <applicationListeners>
         <listener class="com.github.rectcircle.learnintellijplatformplugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>

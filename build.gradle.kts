@@ -1,7 +1,20 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 fun properties(key: String) = project.findProperty(key).toString()
+// 通过 macos 的 defaults 命令获取 app 的路径
+fun parseIdeDir(appName: String): String {
+    val byteOut = ByteArrayOutputStream()
+    val cmd = "defaults read '" + System.getProperties().getProperty("user.home")+ "/Applications/JetBrains Toolbox/"+ appName +".app/Contents/Info' JetBrainsToolboxApp"
+    project.exec {
+        commandLine("bash", "-c", cmd)
+        standardOutput = byteOut
+    }
+    val ideDir = String(byteOut.toByteArray()).trim() + "/Contents"
+    println("IdeDir is $ideDir")
+    return ideDir
+}
 
 plugins {
     // Java support
@@ -118,5 +131,16 @@ tasks {
         // Specify pre-release label to publish the plugin in a custom Release Channel automatically. Read more:
         // https://plugins.jetbrains.com/docs/intellij/deployment.html#specifying-a-release-channel
         channels.set(listOf(properties("pluginVersion").split('-').getOrElse(1) { "default" }.split('.').first()))
+    }
+
+    runIde {
+        // 根据环境变量来启动不同的平台
+        val runOn =System.getenv()["RUN_ON"]
+        if (runOn != null && "" != runOn) {
+            // https://github.com/JetBrains/gradle-intellij-plugin/issues/772
+            systemProperty("idea.platform.prefix", runOn)
+            // https://github.com/JetBrains/gradle-intellij-plugin/blob/master/README.md#running-dsl
+            ideDir.set(file(parseIdeDir(runOn)))
+        }
     }
 }
