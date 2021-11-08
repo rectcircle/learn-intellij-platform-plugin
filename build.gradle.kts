@@ -1,6 +1,5 @@
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.konan.target.buildDistribution
 import java.io.ByteArrayOutputStream
 
 fun properties(key: String) = project.findProperty(key).toString()
@@ -150,6 +149,7 @@ tasks {
     }
 
     runIde {
+        autoReloadPlugins.set(true)
         // 根据环境变量来启动不同的平台
         val runOn =System.getenv()["RUN_ON"]
         if (runOn != null && "" != runOn) {
