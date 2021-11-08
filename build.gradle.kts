@@ -41,12 +41,17 @@ repositories {
 // Configure Gradle IntelliJ Plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
+
+    // https://github.com/JetBrains/gradle-intellij-plugin#intellij-platform-properties
+    // 平台版本如 IC / IU 等（社区版/专业版）
     type.set(properties("platformType"))
+    // 开发编译时使用的平台版如 2021.1.1
+    version.set(properties("platformVersion"))
     downloadSources.set(properties("platformDownloadSources").toBoolean())
     updateSinceUntilBuild.set(true)
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
+    // 本插件依赖的插件，如 org.jetbrains.plugins.go:211.6693.111
     plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
 }
 

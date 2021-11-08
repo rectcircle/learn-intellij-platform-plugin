@@ -1,0 +1,9 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.run.DemoRunService" />
+        <!-- 调试运行配置的贡献点 -->
+        <configurationType implementation="com.github.rectcircle.learnintellijplatformplugin.run.configuration.DemoRunConfigurationType"/>
+        <!-- 运行器贡献点 -->
+        <programRunner implementation="com.github.rectcircle.learnintellijplatformplugin.run.execution.DemoProgramRunner" order="first"/>
+    </extensions>
+</idea-plugin>

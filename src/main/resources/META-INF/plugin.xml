@@ -17,6 +17,11 @@
 
     <!-- 依赖的内置插件. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
+    <!-- 可选依赖 （该调试特性仅支持 goland）
+        https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html
+        https://plugins.jetbrains.com/docs/intellij/plugin-dependencies.html
+    -->
+    <depends optional="true" config-file="demo-golang.xml">org.jetbrains.plugins.go</depends>
 
     <!-- 插件扩展声明. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
 <!--    <extensionPoints></extensionPoints>-->
@@ -54,6 +59,19 @@
 <!--                             id="org.company.ProjectSettingsConfigurable" displayName="My Project Settings"-->
 <!--                             nonDefaultProject="true"/>-->
         <applicationService serviceImplementation="com.github.rectcircle.learnintellijplatformplugin.settings.AppSettingsState"/>
+
+        <!-- 注册一个工具窗口按钮，在此配置工具栏按钮的信息，属性说明如下
+                id 工具窗口的id - 对应于工具窗口按钮上显示的文本。要提供一个本地化的文本，通过 `toolwindow.stripe.[id]` 方式给出（空格替换为 `_` ），本地化参见 https://plugins.jetbrains.com/docs/intellij/localization-guide.html
+                anchor 位置 "left" (default), "right" or "bottom"
+                secondary 指定工具窗口是否显示在次要组中（如果 anchor 为 左或右， 该字段为 true 则显示在下方）
+                icon 图标使用 13x13 像素，更多参见 https://plugins.jetbrains.com/docs/intellij/work-with-icons-and-images.html
+                factoryClass 工厂类
+        -->
+        <toolWindow id="Sample Calendar"
+                    secondary="true"
+                    icon="AllIcons.General.Modified"
+                    anchor="right"
+                    factoryClass="com.github.rectcircle.learnintellijplatformplugin.toolwindow.MyToolWindowFactory"/>
     </extensions>
 
     <!-- 注册应用级别监听器. see: https://plugins.jetbrains.com/docs/intellij/plugin-listeners.html#defining-application-level-listeners -->
