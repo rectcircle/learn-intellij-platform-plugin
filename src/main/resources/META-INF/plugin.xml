@@ -72,6 +72,11 @@
                     icon="AllIcons.General.Modified"
                     anchor="right"
                     factoryClass="com.github.rectcircle.learnintellijplatformplugin.toolwindow.MyToolWindowFactory"/>
+        <toolWindow id="Webview"
+                    secondary="true"
+                    icon="AllIcons.General.Modified"
+                    anchor="right"
+                    factoryClass="com.github.rectcircle.learnintellijplatformplugin.toolwindow.MyWebviewFactory"/>
     </extensions>
 
     <!-- 注册应用级别监听器. see: https://plugins.jetbrains.com/docs/intellij/plugin-listeners.html#defining-application-level-listeners -->
